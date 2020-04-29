@@ -55,32 +55,44 @@ void printList(node* head){
         return;
     node* temp = head;
     while(temp){
-        cout << temp->v << endl;
+        cout << temp->v << ",";
         temp = temp->next;
     }
+    cout << endl;
     return;
 }
+
+// 递归反转
+node* recursiveReverseList(node*head){
+    // 如果 为空或者
+    if(!head || head->next)
+        return head;
+
+    node* end = recursiveReverseList(head->next);
+    head->next->next = head;
+    head->next = nullptr; 
+    return end;
+}
+
 
 void reverseList(node** head){
     if(!(*head) || !(*head)->next) 
         return;
+    node* pre = *head;
+    node* cur = (*head)->next;
+    node* temp = nullptr;
+    (*head)->next = nullptr;
 
-    node* n1 = *head;
-    node* n2 = n1->next;
-    node* n3 = n1->next->next;
-
-    n1->next =nullptr;
-    n2->next =n1; 
-
-    while(n3){
-        n1 = n2;
-        n2 = n3;
-        n3 = n3->next;
-
-        n2->next = n1;
+    // 如果当前节点存在
+    while(cur){
+        // 那么先记录当前节点后一个节点的位置，因为之后要将他进行翻转。 
+        temp = cur->next;
+        cur->next = pre;
+        
+        // 将当前节点后移。
+        pre = cur;
+        cur = temp;
     }
-
-    *head = n2; 
     return;
 }
 
@@ -125,9 +137,31 @@ bool checkCircle(node* head, node** entry){
 }
 
 // 两个有序链表合并
-void combine(node* h1, node* h2, node* h3){
+node* combine(node* h1, node* h2){
+    if(!h1 && !h2){
+        return nullptr;
+    }
+    node* ret = new node();
+    node* temp = ret;
 
+    while(h1 && h2){
+        // 比较 h1和 h2的内容的大小，将较小的那个拼在链表尾部
+        if(h1->v >= h2->v){
+           temp->next = h2;
+           temp = h2; 
+           h2 = h2->next;
+        }else{
+            temp->next = h1;
+            temp = h1;
+            h1 = h1->next;
+        }
+    }
 
+    h1? temp->next=h1: temp->next=h2;
+
+    temp =  ret->next;
+    delete(ret);
+    return temp;
 }
 
 // 
@@ -147,9 +181,23 @@ int main(int argc, char** argv){
     for(auto i=1;i<10;i++){
         appendToList(head, i);
     }
-    printList(head);
-    reverseList(&head);
-    printList(head);
+    // printList(head);
+    // reverseList(&head);
+    // printList(head);
 
+    node * h1, * h2;
+    makeList(1, &h1);
+    for(auto i=1; i<20;i+=2){
+        appendToList(h1, i);
+    }
+    printList(h1);
+
+    makeList(1, &h2);
+    for(auto i=1; i<20;i+=3){
+        appendToList(h2, i);
+    }
+    printList(h2);
+    node* h3 = combine(h1,h2);
+    printList(h3);
     return 0;
 }
