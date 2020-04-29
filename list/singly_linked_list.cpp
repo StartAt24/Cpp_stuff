@@ -164,15 +164,57 @@ node* combine(node* h1, node* h2){
     return temp;
 }
 
-// 
-void deleteN(node* head){
+// 删除倒数第N个数 
+node* deleteN(node* head, int n){
+// 想法:快慢指针 慢指针先走一段路
+// 要注意 如果是删除第一个元素的话，不能取到prev.
+    node* slow= head, *fast =head;
+    while(n--){
+        fast = fast->next;
+    }
 
+    if(!fast){
+        head = head->next;
+        return head;
+    }
+
+    node* prev=nullptr;
+    while(fast){
+        prev = slow;
+        slow = slow->next;
+        fast = fast->next;
+    }
+
+    prev->next = slow->next;
+    return head;
 }
 
-
+// 查找中点
 node* findCenter(node* head){
+    if(!head)
+        return nullptr;
 
-    return nullptr;
+    // 快慢指针， 快只针到底的时候 慢指针刚好到一半。
+    // 分两种情况一个是偶数 一个不是偶数。
+    node* fast = head;
+    node* slow = head;
+    while(fast){
+        // 证明后面还可以遍历一次
+        if(fast->next->next && fast->next){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+
+        if(!fast->next){
+            // 说明链表长度刚好是奇数，则慢指针刚好在中间
+            return slow;
+        }
+        
+        if(!fast->next->next){
+            // 说明链表长度是偶数，则满指针在中间的偏左
+            return slow;
+        }
+    }
 }
 
 int main(int argc, char** argv){
@@ -199,5 +241,7 @@ int main(int argc, char** argv){
     printList(h2);
     node* h3 = combine(h1,h2);
     printList(h3);
+
+    cout << findCenter(h2)->v << endl;
     return 0;
 }
