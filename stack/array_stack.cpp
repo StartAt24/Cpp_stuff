@@ -34,22 +34,74 @@ public:
         return 0;
     }
 
-public:
+private:
     int _ability;
     int _size;
     int *_bag;
 };
 
+// 与arrayStack不一样，先不限制大小
+class listStack{
+struct Node{
+    int v;
+    Node* next;
+    Node* before;
+    Node(int value):v(value){};
+};
+
+public:
+    listStack():_current(nullptr),_head(nullptr){};
+    ~listStack(){
+        while(_current){
+            auto temp = _current->before;
+            delete(_current);
+            _current = temp;
+        }
+    }
+
+    int push(int value){
+        if(_head == nullptr){
+            _head = new Node(value);
+            _head->before = nullptr;
+            _current = _head;
+        }
+
+        Node * n = new Node(value);
+        n->before = _current;
+        _current->next = n;
+        _current = n;
+
+        return 0;
+    }
+
+    int pop(int& value){
+        if(!_current){
+            return -1;
+        }
+
+        value = _current->v;
+        auto temp = _current->before;
+        delete _current;
+        _current = temp;
+        return 0;
+    }
+
+private:
+    Node* _current;
+    Node* _head;
+};
+
 int main(int argc, char** argv){
     ArrayStack s(10);
+    listStack  s2;
 
     for(auto i=0; i<10; i++){
-        cout<< i << ":" <<s.push(i) << endl;
+        cout<< i << ":" <<s2.push(i) << endl;
     }
 
     for(auto i=0; i<10; i++){
         int content;
-        int v = s.pop(content);
+        int v = s2.pop(content);
         cout << v <<":" << content << endl;
     }
     return 0;
