@@ -64,6 +64,7 @@ public:
             _head = new Node(value);
             _head->before = nullptr;
             _current = _head;
+            return 0;
         }
 
         Node * n = new Node(value);
@@ -99,7 +100,7 @@ int main(int argc, char** argv){
         cout<< i << ":" <<s2.push(i) << endl;
     }
 
-    for(auto i=0; i<10; i++){
+    for(auto i=0; i<17; i++){
         int content;
         int v = s2.pop(content);
         cout << v <<":" << content << endl;
