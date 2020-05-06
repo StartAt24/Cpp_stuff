@@ -11,7 +11,7 @@ public:
     ~ArrayStack(){
         if(_bag!=nullptr)
         {
-            delete _bag;
+            delete [] _bag;
             _bag = nullptr;
         }
     };

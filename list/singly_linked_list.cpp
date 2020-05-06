@@ -116,6 +116,7 @@ bool checkCircle(node* head, node** entry){
 
         if(slow_ptr == fast_ptr){
             isCircle = true;
+            break;
         }
     }
 
