@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ void bubbleSort(int* & arr, int len){
 }
 
 // 插入排序
-void insertSort(int *&arr, int len){
+void insertionSort(int *&arr, int len){
     if(len<=1) return;
 
     for(auto i=1;i<len;i++){
@@ -49,13 +50,37 @@ void insertSort(int *&arr, int len){
                 break;
             }
         }
-        arr[index] = val;
+        arr[index+1] = val;
+    }
+}
+
+void selectionSort(int* &arr, int len){
+
+    for(auto i=0; i<len;i++){
+        auto temp = arr[i];
+        auto min = std::numeric_limits<int>::max();
+        auto index = -1;
+        // 获取最小值
+        for(auto j=i;j<len; j++){
+           if(arr[j]<= min) {
+               min = arr[j];
+               index = j;
+           }
+        }
+
+        // 交换最小值的位置
+        arr[i] = min;
+        arr[index] = temp;
     }
 }
 
 int main(int argc, char** argv){
     int* ori = new int[5]{3,2,5,1,4};
-    bubbleSort(ori, 5);
+    print(ori, 5);
+    cout << "------------" << endl;
+    // bubbleSort(ori, 5);
+    // insertionSort(ori, 5);
+    selectionSort(ori, 5);
     print(ori, 5);
     return 0;
 }
