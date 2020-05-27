@@ -9,6 +9,56 @@ void print(int* arr, int len){
     }
 }
 
+// 归并排序
+void merge(int* arr1, int len1, int* arr2, int len2, int*&arr, int len){
+    if(len1 <=0)
+        return ;
+    if(len2 <=0) 
+        return ;
+    
+    int *retArr = new int[len]();
+    int idx = 0;
+    int i=0,j=0;
+    while(i<len1 && j<len2){
+        if(arr1[i]<=arr2[j]){
+            retArr[idx++] = arr1[i++];
+        }else{
+            retArr[idx++] = arr2[j++];
+        } 
+    }
+
+    if(i>=len1){
+        while(j<len2){
+            retArr[idx++] = arr2[j++];
+        }
+    }else{
+        while(i<len1){
+            retArr[idx++] = arr1[i++];
+        }
+    }
+
+    for(auto i=0;i<len;i++){
+        arr[i] = retArr[i];
+    }
+    return;
+}
+
+void mergeSortRecursive(int*& arr, int start, int end){
+    if(start >= end) {
+        return;
+    }
+    int mid = (end+start)/2;
+
+    mergeSortRecursive(arr, start, mid);
+    mergeSortRecursive(arr, mid+1, end);
+    
+    merge(arr, mid+1, arr+mid, end-mid, arr, end-start+1);
+}
+
+void mergeSort(int* &arr, int len){
+    mergeSortRecursive(arr, 0, len-1);
+}
+
 // 时间复杂度 O(n), 空间复杂度 O(1)
 void bubbleSort(int* & arr, int len){
     if(len<=1)
@@ -54,6 +104,7 @@ void insertionSort(int *&arr, int len){
     }
 }
 
+// 选择排序
 void selectionSort(int* &arr, int len){
 
     for(auto i=0; i<len;i++){
@@ -76,11 +127,14 @@ void selectionSort(int* &arr, int len){
 
 int main(int argc, char** argv){
     int* ori = new int[5]{3,2,5,1,4};
+
     print(ori, 5);
     cout << "------------" << endl;
     // bubbleSort(ori, 5);
     // insertionSort(ori, 5);
-    selectionSort(ori, 5);
+    // selectionSort(ori, 5);
+
+    mergeSort(ori, 5);
     print(ori, 5);
     return 0;
 }
