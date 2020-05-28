@@ -73,7 +73,7 @@ void mergeSortRecursive(int*& arr, int start, int end){
     // 不要传进去多个指针 修改原始的值
     merge(arr, start, mid, end);
 }
-
+// 时间复杂度 O(nlogn) 空间复杂度 O(n)
 void mergeSort(int* &arr, int len){
     mergeSortRecursive(arr, 0, len-1);
 }
@@ -100,6 +100,38 @@ void bubbleSort(int* & arr, int len){
         limit--;
     }
 
+}
+void swap(int* a, int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// 分区函数，将数组从某个位置分为 < = > 三个部分。
+int partition(int *arr, int l, int r){
+    auto partitionFlag = arr[r];
+    auto idx = l;
+    for(auto i=l; i< r; i++){
+        if(arr[i]<partitionFlag){
+            swap(&arr[idx], &arr[i]);
+            idx++;
+        }
+    }
+
+    swap(&arr[r], &arr[idx]);
+    return idx;
+}
+
+void quickSortRecursive(int *arr, int l, int r){
+    if(l >= r)
+        return;
+    auto part = partition(arr, l, r);
+    quickSortRecursive(arr, l, part-1);
+    quickSortRecursive(arr, part+1, r);
+}
+
+void quickSort(int* arr, int len){
+    return quickSortRecursive(arr, 0, len-1);
 }
 
 // 插入排序
@@ -153,7 +185,8 @@ int main(int argc, char** argv){
     // insertionSort(ori, 5);
     // selectionSort(ori, 5);
 
-    mergeSort(ori, 5);
+    // mergeSort(ori, 5);
+    quickSort(ori, 5);
     print(ori, 5);
     return 0;
 }
