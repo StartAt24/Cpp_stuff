@@ -182,11 +182,11 @@ int main(int argc, char** argv){
     print(ori, 5);
     cout << "------------" << endl;
     // bubbleSort(ori, 5);
-    // insertionSort(ori, 5);
+    insertionSort(ori, 5);
     // selectionSort(ori, 5);
 
     // mergeSort(ori, 5);
-    quickSort(ori, 5);
+    // quickSort(ori, 5);
     print(ori, 5);
     return 0;
 }
