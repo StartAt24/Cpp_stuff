@@ -23,7 +23,6 @@ int binarySearch(int *arr, int l, int r, int target){
     }
 }
 
-
 // 查找第一个等于某个值的元素
 // 前提都是 数组是顺序的但有重复的元素
 // [0,2,3,3,4,5,7,7,7,9,12,13]
@@ -40,6 +39,28 @@ int findFirstEqual(int *arr, int l, int r, int target){
     }
     return (idx+1);
 }
+
+int findFirstEqual2(int *arr, int l, int r, int target){
+    if(l>r || !arr)
+        return -1;
+
+    while(l<=r) {
+        int mid = l+ (r-l)/2;
+        if(arr[mid] > target){
+            r = mid-1;
+        }else if(arr[mid] < target){
+            l = mid+1; 
+        }else{
+            if(mid==0 || arr[mid-1] !=  target) 
+                return mid;
+            else 
+                r = mid -1;
+        }
+    }
+
+    return -1;
+}
+
 
 int findLastEqual(int *arr, int l, int r, int target){
 
@@ -58,6 +79,6 @@ int main(int argc, char** argv){
     // auto ret = binarySearch(chaos, 0, 6, 4);
 
     int *repeatChaos = new int[13]{0,0,2,3,3,3,4,5,7,8,10,10,12};
-    auto ret = findFirstEqual(repeatChaos, 0, 12, 3);
+    auto ret = findFirstEqual2(repeatChaos, 0, 12, 3);
     cout << ret << endl;
 }
