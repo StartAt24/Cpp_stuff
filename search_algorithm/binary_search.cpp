@@ -82,12 +82,22 @@ int findLastEqual(int *arr, int l, int r, int target){
     return -1;
 }
 
+// 可以在find last equal的基础上 找出下一位
 int findFirstGreater(int *arr, int l, int r, int target){
-
+    auto idx = findLastEqual(arr, l, r, target);
+    if(idx>=r)
+        return -1;
+    else
+        return idx+1; 
 }
 
+// 可以在find first equal的基础上，找前一位
 int findLastLess(int *arr, int l, int r, int target){
-
+    auto idx = findFirstEqual(arr, l, r, target);
+    if(idx<=l)
+        return -1;
+    else
+        return idx-1; 
 }
 
 int main(int argc, char** argv){
@@ -96,6 +106,7 @@ int main(int argc, char** argv){
 
     int *repeatChaos = new int[13]{0,0,2,3,3,3,4,5,7,8,10,10,12};
     // auto ret = findFirstEqual2(repeatChaos, 0, 12, 3);
-    auto ret = findLastEqual(repeatChaos, 0, 12, 12);
+    // auto ret = findLastEqual(repeatChaos, 0, 12, 12);
+    auto ret = findFirstGreater(repeatChaos, 0, 12, 3);
     cout << ret << endl;
 }
