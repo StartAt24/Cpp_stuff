@@ -9,6 +9,7 @@ struct node{
     node* right;
 };
 
+// 前序遍历 root->left->right
 void search_before(node* root){
     if(root != nullptr){
         cout << root->val << endl;
@@ -18,6 +19,7 @@ void search_before(node* root){
     return;
 }
 
+// 中序遍历 left->root->right
 void search_mid(node* root){
     if(root != nullptr){
         search_mid(root->left);
@@ -27,6 +29,7 @@ void search_mid(node* root){
     return;
 }
 
+// 后序遍历 left->right->root
 void search_after(node* root){
     if(root != nullptr){
         search_after(root->left);
@@ -36,7 +39,22 @@ void search_after(node* root){
     return;
 }
 
+node* search(node* root, int n){
+    while(root){
+        if(root->val<n){
+            root= root->right;
+        }else if(root->val>n){
+            root = root->left;
+        }else{
+            return root;
+        }
+    }
+    return nullptr;
+}
+
+
 int main (int argc, char** argv){ 
+
     return 0; 
 }
 
