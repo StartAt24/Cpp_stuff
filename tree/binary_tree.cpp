@@ -119,6 +119,11 @@ public:
             return;
         cout << "root is:" << _root->val << endl;
     }
+
+    void print_height(){
+        cout << "height is:" << height(_root) << endl;
+    }
+
 private:
     void print(node* p){
         if(!p)
@@ -127,6 +132,18 @@ private:
         cout << p->val << endl;
         print(p->right);
         return;
+    }
+
+    int height(node* p){
+        if(!p)
+            return 0;
+        else
+        {
+            if(height(p->left) > height(p->right))
+                return 1+height(p->left);
+            else
+                return 1+height(p->right);
+        }
     }
 
 private:
@@ -181,15 +198,13 @@ node* search(node* root, int n){
 int main (int argc, char** argv){ 
     binarySearchTree t;
     t.insert(6);
-
-    t.print();
-    t.print_root();
+    t.insert(3);
+    t.insert(1);
+    t.print_height();
 
     cout << "---------" << endl;
     t.del(6);
-    t.print();
-    t.print_root();
-
+    t.print_height();
     return 0; 
 }
 
