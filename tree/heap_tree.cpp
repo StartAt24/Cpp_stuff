@@ -1,4 +1,5 @@
 #include <iostream>
+#include <functional>
 using namespace std;
 
 void swap(int* arr, int l, int r){
@@ -31,9 +32,27 @@ public:
             swap(_arr, i, i/2);
             i = i/2;
         }
-
-
     };
+
+    int removeMax(int n){
+        if(_count == 0)
+            return  -1;
+        // 将最后一个元素 替换到第一个元素
+        _arr[1] = _arr[_count];
+        --_count;
+
+        [](int*arr, int n, int i){
+            while(1){
+                int maxPos = i;
+                if(i*2 <= n && arr[i]<arr[i*2]) maxPos = i*2;
+                if(i*2+1 <= n && arr[i]<arr[i*2+1]) maxPos = i*2+1;
+                if(maxPos == i)
+                    break;
+                swap(arr, i, maxPos);
+                i = maxPos;
+            }
+        }(_arr, _count, 1);
+    }
 private:
     int* _arr;
     int  _count;
