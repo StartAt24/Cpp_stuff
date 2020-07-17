@@ -27,6 +27,7 @@ public:
     int breadthFirstSearch(int s, int t){
         if(s == t)
             return 0;
+        init();
 
         // 需要浏览的节点
         _to_visit.push_back(s);
@@ -54,6 +55,33 @@ public:
         return -1;
     }
 
+    int deepFirstSearch(int s, int t){
+        if(s == t)
+            return 0;
+        init(); 
+
+        dfsRecursive(s,t);
+        print(s,t);
+    }
+
+    void dfsRecursive(int s, int t){
+        if(_is_found)
+            return;
+        
+        _is_visted[s] = true;
+        if(s==t)
+        {
+            _is_found= true;
+            return;
+        }
+        for(auto m: _main_list[s]){
+            if(!_is_visted[m]){
+                _who_visted_me[m] = s;
+                dfsRecursive(m, t);
+            }
+        }
+    }
+
     // print path s->t
     void print(int s, int t){
         if(_who_visted_me[t] != -1 && s != t) 
@@ -67,6 +95,7 @@ public:
         std::fill(_is_visted.begin(), _is_visted.end(), 0);
         std::fill(_who_visted_me.begin(), _who_visted_me.end(), -1);
         _to_visit.clear();
+        _is_found = false;
     }
 private:
     vector<list<int>> _main_list;
@@ -77,6 +106,9 @@ private:
     vector<bool> _is_visted;
     // 通过谁访问到了我
     vector<int> _who_visted_me;
+
+    // 深度搜索是否已经找到
+    bool _is_found;
 };
 
 int main(int argc, char** argv){
@@ -91,7 +123,8 @@ int main(int argc, char** argv){
     g.addDegree(4, 6);
     g.addDegree(6, 7);
     g.addDegree(5, 7);
-    g.breadthFirstSearch(0, 6);
+    // g.breadthFirstSearch(0, 6);
+    g.deepFirstSearch(0,6);
     return 0;
     
 }
