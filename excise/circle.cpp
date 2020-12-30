@@ -20,11 +20,9 @@ public:
         if(!head_)
             return;
         auto temp = head_;
-        auto next = head_->next;
-        while(temp){
-            next = temp->next;
+        while(temp&&temp->next){
             delete temp;
-            temp = next;
+            temp = temp->next;
         }
         head_ = nullptr;
         current_ = nullptr;
@@ -54,6 +52,7 @@ public:
                     head_ = temp->next;
 
                 delete temp;
+                --size_;
             }
             temp = temp->next;
         }
@@ -90,26 +89,37 @@ public:
     void pop_front(){
         if(!head_)
             return;
+        --size_;
+        if(head_ && !head_->next){
+            delete head_;
+            head_ = nullptr;
+            current_ = nullptr;
+            return;
+        }
         auto temp = head_;
         temp->next->before = nullptr;
         head_ = temp->next;
         delete temp;
-        --size_;
     }
 
     void pop_back(){
         if(!head_)
             return;
+        --size_;
         auto temp = head_;
         // 这样的方式获取到的就是最后一个
         while(temp && temp->next){
             temp = temp->next;
         }
-
+        if(temp == head_){
+            delete head_;
+            head_ = nullptr;
+            current_ = nullptr;
+            return;
+        }
         current_ = temp->before;
         temp->before->next = nullptr;
         delete temp;
-        --size_;
     }
 
     void print(){
@@ -129,12 +139,8 @@ private:
 
 int main(){
     list l;
-    l.append_front(3);
-    l.append_back(4);
+    l.append_back(3);
+    l.append_front(4);
     l.append_front(2);
     l.print();
-    auto t = l.find(2);
-    l.erase(t);
-    l.print();
-    cout << l.size() << endl;
 }
