@@ -26,8 +26,24 @@ public:
 
     // 反转
     void reverse(){
+        // 反转其实需要三个指针
+        if(!head_ || (head_&&!head_->next))
+            return;
         
+        current_ = head_;
 
+        Node* first{nullptr}, *second{nullptr}, *third{nullptr};
+        second = head_;
+        third = second->next;
+
+        while(third){
+            second->next = first;
+            first = second;
+            second = third;
+            third = third->next;
+        }
+        second->next = first;
+        head_ = second;
     }
 
     void push_back(const T& t){
@@ -129,11 +145,12 @@ int main(){
     l.push_back(2);
     l.push_back(3);
     l.push_back(4);
-
-
-
-
-
+    l.print();
+    l.reverse();
+    l.print();
+    l.push_back(33);
+    l.print();
+    l.reverse();
+    l.print();
     return 0;
 }
-
