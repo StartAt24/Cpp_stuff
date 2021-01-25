@@ -63,13 +63,62 @@ public:
         Node* slow=nullptr, *fast=nullptr;
         slow = head_;
         fast = head_;
-        while(slow){
-            if(slow == fast)
-                return true;
-            slow = slow->next;
+        while(fast && fast->next){
             fast = fast->next->next;
+            slow = slow->next;
+            if(fast == slow)
+                return true;
         }
+        
         return false;
+    }
+
+    // 有序链表合并
+    void combine(const MList<T>& other){
+        Node* h1 = head_;
+        Node* h2 = other.head_;
+        Node* stash = new Node({});
+        Node* temp = stash;
+
+        bool init = false;
+        while(h1 && h2){
+            if(h1->val < h2->val){
+                stash->next = h1;
+                stash = stash->next; 
+                h1=h1->next;
+            }else{
+                stash->next = h2;
+                stash = stash->next; 
+                h2 = h2->next; 
+            }
+        }
+        h1 ? stash->next = h1: stash->next = h2;
+        head_ = temp->next;
+    }
+
+    void deleteN(size_t n){
+        if(size_<n)
+            return;
+
+        Node* fast=head_;
+        Node* slow=head_;
+        while(n){
+            fast = fast->next;
+            --n;
+        }
+        while(fast->next){
+            fast=fast->next;
+            slow=slow->next;
+        }
+        auto temp = slow->next;
+        slow->next = slow->next->next;
+        delete temp;
+        --size_;
+    }
+
+    T& middle(){
+        // 假设不知道长度
+
     }
 
     void push_back(const T& t){
@@ -171,12 +220,26 @@ int main(){
     l.push_back(2);
     l.push_back(3);
     l.push_back(4);
+    // l.print();
+    // l.reverse();
+    // l.print();
+    // l.push_back(33);
+    // l.print();
+    // l.r_reverse_wrap();
+    // l.print();
     l.print();
-    l.reverse();
+
+    MList<int> l2;
+    l2.push_back(0);
+    l2.push_back(3);
+    l2.push_back(7);
+    l2.push_back(9);
+    l2.print();
+
+    l.combine(l2);
     l.print();
-    l.push_back(33);
-    l.print();
-    l.r_reverse_wrap();
+
+    l.deleteN(4);
     l.print();
     return 0;
 }
