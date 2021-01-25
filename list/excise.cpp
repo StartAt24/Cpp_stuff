@@ -26,24 +26,50 @@ public:
 
     // 反转
     void reverse(){
-        // 反转其实需要三个指针
-        if(!head_ || (head_&&!head_->next))
+        // 没有或者只有一个元素 不需要反转
+        if(!head_ || !head_->next)
             return;
-        
         current_ = head_;
 
-        Node* first{nullptr}, *second{nullptr}, *third{nullptr};
-        second = head_;
-        third = second->next;
+        // 反转其实需要三个指针
+        Node* temp{nullptr}, *cur{nullptr}, *pre{nullptr};
+        cur = head_->next;
+        pre = head_;
+        head_->next = nullptr;
 
-        while(third){
-            second->next = first;
-            first = second;
-            second = third;
-            third = third->next;
+        while(cur){
+            temp = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = temp;
         }
-        second->next = first;
-        head_ = second;
+        head_ = pre;
+    }
+
+    void r_reverse_wrap(){
+        head_ = r_reverse(head_);
+    }
+
+    Node* r_reverse(Node* node){
+        if(!node || !node->next)
+            return node;
+        Node* ret_node = r_reverse(node->next);
+        node->next->next = node;
+        node->next = nullptr;
+        return ret_node;
+    }
+
+    bool isCircle(){
+        Node* slow=nullptr, *fast=nullptr;
+        slow = head_;
+        fast = head_;
+        while(slow){
+            if(slow == fast)
+                return true;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return false;
     }
 
     void push_back(const T& t){
@@ -150,7 +176,7 @@ int main(){
     l.print();
     l.push_back(33);
     l.print();
-    l.reverse();
+    l.r_reverse_wrap();
     l.print();
     return 0;
 }

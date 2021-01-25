@@ -65,7 +65,7 @@ void printList(node* head){
 // 递归反转
 node* recursiveReverseList(node*head){
     // 如果 为空或者
-    if(!head || head->next)
+    if(!head || !head->next)
         return head;
 
     node* end = recursiveReverseList(head->next);
