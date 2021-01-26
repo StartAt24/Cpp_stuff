@@ -212,6 +212,36 @@ private:
     size_t size_{0};
 };
 
+template<typename T, typename Container=MList<T> >
+class Stack{
+public:
+    Stack(size_t n):capacity_(n){};
+    ~Stack()=default;
+    int push(T c){
+        if(size_>=capacity_)
+            return -1;
+        container_.push_back(c);
+        ++size_;
+        return 0;
+    }
+
+    T& top(){
+        return container_.back();
+    }
+
+    void pop(){
+        container_.pop_back();
+        --size_;
+    }
+
+    void print(){
+        container_.print();
+    }
+private:
+    size_t   capacity_{0};
+    size_t   size_{0};
+    Container container_;
+};
 
 
 int main(){
@@ -241,5 +271,17 @@ int main(){
 
     l.deleteN(4);
     l.print();
+
+    Stack<int> s(4);
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+    s.push(5);
+    s.pop();
+    s.pop();
+    s.pop();
+    s.print();
+
     return 0;
 }
