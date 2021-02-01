@@ -11,17 +11,22 @@ void bubble_sort(array<T, cap>& in){
     
     const size_t size = in.size();
 
-    auto swap_val = [&](int idx1, int idx2){
+    auto swap_val_func = [&](int idx1, int idx2){
         T temp = in[idx1];
         in[idx1] = in[idx2];
         in[idx2] = temp;
     };
 
     for(auto i=0; i<size; i++){
+        bool sort = false;
         for(auto j=i; j<size; j++){
-            if(in[i] > in[j])
-                swap_val(i, j);
+            if(in[i] < in[j]){
+                swap_val_func(i, j);
+                sort = true;
+            }
         }
+        if(!sort)
+            return;
     }
     return;
 }
