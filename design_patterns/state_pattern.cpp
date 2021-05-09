@@ -2,6 +2,11 @@
 #include <memory>
 #include <fstream>
 
+// 状态机包含多种实现：
+// 1.直白的写法
+// 2.查表法
+// 3.状态模式 
+
 using namespace std;
 enum class State{
     a,
