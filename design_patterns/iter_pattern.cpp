@@ -27,7 +27,7 @@ public:
     bool hasNext(){
         return current_idx_ != container_->count();
     }
-    
+
     void next(){
         checkModCnt();
         current_idx_++;
