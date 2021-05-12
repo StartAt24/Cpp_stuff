@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+// a shame comment to make  the git history green. Don't ever do it again.
 class Iterator{
 public:
     virtual bool hasNext() = 0;
