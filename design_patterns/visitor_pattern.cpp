@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+// double dispatch don't need visitor pattern
 using namespace std;
 
 class Visitor{
