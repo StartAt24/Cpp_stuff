@@ -19,9 +19,27 @@ class BackgroundTask{
     }
 };
 
+class ThreadGuard{
+    public:
+    explicit ThreadGuard(thread& other):_thread(other){
+    }
+    ~ThreadGuard(){
+        if(_thread.joinable())
+            _thread.join();
+    }
+    private:
+    thread& _thread;
+};
+
 int main(){
     BackgroundTask b;
     // it will copy or move b.
-    thread t(b);
-    t.join();
+        cout << "11111\n";
+    thread t(b); // it will copy twice??
+        cout << "22222\n";
+    {
+        cout << "---\n";
+        ThreadGuard tt(t);
+    }
+    cout << "endl\n";
 }
