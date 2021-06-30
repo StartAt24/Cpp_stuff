@@ -23,6 +23,8 @@ class ThreadGuard{
     public:
     explicit ThreadGuard(thread& other):_thread(other){
     }
+    ThreadGuard(const ThreadGuard&) = delete;
+    ThreadGuard& operator=(const ThreadGuard&) = delete;
     ~ThreadGuard(){
         if(_thread.joinable())
             _thread.join();
