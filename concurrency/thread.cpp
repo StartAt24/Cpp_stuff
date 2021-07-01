@@ -54,7 +54,6 @@ int main(){
         cout << "---\n";
         ThreadGuard tt(t);
     }
-    cout << "++++++\n";
     int a=0,c=0;
     thread t2(RefParam, a, std::ref(c));
     t2.join();
