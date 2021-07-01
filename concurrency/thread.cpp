@@ -37,6 +37,13 @@ void RefParam(int a, int& b){
 
 }
 
+class Test{
+    public:
+    void say(){
+        cout << "hello" <<endl;
+    }
+};
+
 int main(){
     BackgroundTask b;
     // it will copy or move b.
@@ -47,7 +54,11 @@ int main(){
         cout << "---\n";
         ThreadGuard tt(t);
     }
-    cout << "endl\n";
+    cout << "++++++\n";
     int a=0,c=0;
     thread t2(RefParam, a, std::ref(c));
+    t2.join();
+    Test tt;
+    thread t3(&Test::say, &tt);
+    t3.join();
 }
