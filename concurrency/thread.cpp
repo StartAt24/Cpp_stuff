@@ -33,6 +33,10 @@ class ThreadGuard{
     thread& _thread;
 };
 
+void RefParam(int a, int& b){
+
+}
+
 int main(){
     BackgroundTask b;
     // it will copy or move b.
@@ -44,4 +48,6 @@ int main(){
         ThreadGuard tt(t);
     }
     cout << "endl\n";
+    int a=0,c=0;
+    thread t2(RefParam, a, std::ref(c));
 }
