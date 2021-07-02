@@ -44,6 +44,13 @@ class Test{
     }
 };
 
+void s1_func(){
+
+}
+void s2_func(){
+
+}
+
 int main(){
     BackgroundTask b;
     // it will copy or move b.
@@ -60,4 +67,9 @@ int main(){
     Test tt;
     thread t3(&Test::say, &tt);
     t3.join();
+
+    thread tfc1(s1_func);
+    thread tfc2(s2_func);
+    tfc2 = std::move(tfc1);
+
 }
