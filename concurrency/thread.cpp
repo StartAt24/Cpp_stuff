@@ -52,6 +52,7 @@ void s2_func(){
 }
 
 int main(){
+    #if 0
     BackgroundTask b;
     // it will copy or move b.
         cout << "11111\n";
@@ -71,5 +72,19 @@ int main(){
     thread tfc1(s1_func);
     thread tfc2(s2_func);
     tfc2 = std::move(tfc1);
+    #endif
 
+    thread t1([](){
+        this_thread::sleep_for(2s);
+        cout << " t1 ...after sleep 2s" << endl;
+    });
+
+    cout<<"before assign\n";
+    t1 = thread([](){
+        this_thread::sleep_for(3s);
+        cout << " t1 ...after sleep 2s" << endl;
+    });
+    cout<<"after assign\n";
+
+    t1.join();
 }
