@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 #include <mutex>
 #include <exception>
 #include <stack>
@@ -53,3 +54,14 @@ public:
         return data.empty();
     }
 };
+
+
+int main(){
+    threadsafe_stack<int> stack;
+    stack.push(3);
+    stack.push(2);
+    auto top = stack.pop();
+    std::cout << *top << std::endl;
+    *top = 99;
+    std::cout << *top << std::endl;
+}
