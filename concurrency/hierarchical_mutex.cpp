@@ -47,3 +47,7 @@ public:
 
 thread_local unsigned long 
     hierarchical_mutex::this_thread_hierarchy_value(ULONG_MAX);
+
+int main(){
+
+}
