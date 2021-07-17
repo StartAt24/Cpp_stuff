@@ -46,6 +46,47 @@ public:
     }
 };
 
+// call_once 延迟调用
+class ConnectionInfo{
+};
+class ConnectionHandle{
+};
+class ConnectionManager{
+    public:
+    ConnectionHandle open(ConnectionInfo);
+};
+class X{
+private:
+    ConnectionInfo _connection_info;
+    ConnectionHandle _connection;
+    ConnectionManager _conn_manager;
+    std::once_flag _conn_init_flag;
+    void open_connection(){
+        _connection = _conn_manager.open(_connection_info);
+    }
+public:
+    X(ConnectionInfo const& info):_connection_info(info){
+
+    }
+
+    void send(){
+        std::call_once(_conn_init_flag, &X::open_connection, this);
+        // do some send job here;
+    }
+    void receive(){
+        std::call_once(_conn_init_flag, &X::open_connection, this);
+        // do some receive job here;
+    }
+};
+// 通过 静态变量来实现单例(c++11之后才行，11之前因为静态变量初始化存在竞态所以不行)
+class MyClass{
+public:
+static MyClass& GetInstance(){
+    static MyClass instance;
+    return instance;
+}
+};
+
 int main(){
     return 0;
 }
