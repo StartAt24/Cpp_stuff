@@ -30,13 +30,19 @@ class SingletonOnce{
 private:
     static std::once_flag _ins_flag;
     static SingletonOnce* _ins;
+    int a;
 public:
-    // 因为是static的，所以无法捕获this
+    // 因为是static的，所以无法捕获this, 如果是nostatic应该需要捕获this来访问成员
     static SingletonOnce* GetInstance(){
         std::call_once(_ins_flag, [](){
             _ins = new SingletonOnce();
         });
         return _ins;
+    }
+    void test_capture(){
+        [this](){
+            a = 3;
+        }();
     }
 };
 
