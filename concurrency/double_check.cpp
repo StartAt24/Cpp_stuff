@@ -31,6 +31,7 @@ private:
     static std::once_flag _ins_flag;
     static SingletonOnce* _ins;
 public:
+    // 因为是static的，所以无法捕获this
     static SingletonOnce* GetInstance(){
         std::call_once(_ins_flag, [](){
             _ins = new SingletonOnce();
