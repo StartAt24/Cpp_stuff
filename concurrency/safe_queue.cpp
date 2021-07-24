@@ -52,7 +52,7 @@ class ThreadSafeQueue
 template<typename T>
 class ThreadSafeQueue{
     private:
-    std::mutex mut;
+    mutable std::mutex mut;
     std::queue<T> data_queue;
     std::condition_variable data_cond;
     public:
@@ -94,6 +94,7 @@ class ThreadSafeQueue{
         return res;
     }
     bool empty() const{
+        // 因为mutex的 lock和 unlock方法是 un const 的，但是又在const函数里，所以必须要将mut设置为mutable.
         std::lock_guard<std::mutex> _(mut);
         return data_queue.empty();
     }
