@@ -40,7 +40,7 @@ class atm{
                 }
             }
         ).handle<cancel_pressed>(
-            [&](cancel_pressed const* msg){
+            [&](cancel_pressed const& msg){
                 state=&atm::done_processing;
             }
         );
