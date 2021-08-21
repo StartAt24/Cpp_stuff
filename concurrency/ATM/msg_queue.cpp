@@ -1,8 +1,9 @@
 #include <mutex>
+#include <iostream>
 #include <condition_variable>
 #include <queue>
 #include <memory>
-
+using namespace std;
 namespace messaging{
     struct message_base{
         virtual ~message_base(){}
@@ -35,4 +36,37 @@ public:
         return res;
     }
 };
+
+// class receiver;
+class sender{
+    queue* q;
+    public:
+    sender():q(nullptr){}
+    explicit sender(queue *q_):q(q_){}
+    template<typename Message>
+    void send(Message const&msg){
+        if(!q)
+            return;
+        q->push(msg);
+    }
+};
+
+class receiver{
+    queue q; // 接受者拥有对应的队列
+    public:
+    operator sender()//允许将队列隐式转换为一个sender队列
+    {
+        cout << "call convert..." << endl;
+        return sender(&q);
+    }
+    // dispatcher wait(){
+    //     return dispatcher(&q);
+    // }
+};
+}
+
+int main(){
+    messaging::receiver r;
+    messaging::sender s  = messaging::sender(r);
+    return 0;
 }
