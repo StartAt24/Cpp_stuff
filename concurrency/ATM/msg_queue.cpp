@@ -59,9 +59,9 @@ class receiver{
         cout << "call convert..." << endl;
         return sender(&q);
     }
-    // dispatcher wait(){
-    //     return dispatcher(&q);
-    // }
+    dispatcher wait(){
+        return dispatcher(&q);
+    }
 };
 }
 
