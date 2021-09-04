@@ -63,6 +63,17 @@ class receiver{
         return dispatcher(&q);
     }
 };
+
+class close_queue{};
+
+class dispatcher{
+    queue* q;
+    bool chained;
+    dispatcher()
+}
+
+
+
 }
 
 int main(){
