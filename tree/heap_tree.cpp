@@ -8,6 +8,7 @@ void swap(int* arr, int l, int r){
     arr[r] = temp;
 }
 
+
 // store in an array.
 // left_child = 
 class HeapTree{
@@ -60,8 +61,9 @@ private:
 };
 
 int main(int argc, char** argv){
-
-
-
+    HeapTree h(30);
+    h.insert(1);
+    h.insert(2);
+    h.insert(3);
     return 0;
 }
