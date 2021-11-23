@@ -1,6 +1,11 @@
 // placeholder for different kinds of pointers.
+class IRefBase{
+public:
+    virtual void AddRef() = 0;
+    virtual void Release() = 0;
+};
 
-template<type T>
+template<typename T>
 class RefPointer{
 public:
     RefPointer(T* ptr = nullptr){
