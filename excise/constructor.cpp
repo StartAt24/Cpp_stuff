@@ -16,3 +16,11 @@ class ProctectedDestructor{
     protected:
     ~ProctectedDestructor(){}
 };
+
+class Marrage{
+    public:
+    Marrage(){}
+    void say(){
+        cout << "best friend get married"<<endl;
+    }
+};
