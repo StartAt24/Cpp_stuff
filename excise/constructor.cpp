@@ -24,3 +24,7 @@ class Marrage{
         cout << "best friend get married"<<endl;
     }
 };
+
+int main (){
+    cout << "shutiao is sleeping." << endl;
+}
