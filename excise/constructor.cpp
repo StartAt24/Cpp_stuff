@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 class PrivateDestructor{
 public:
@@ -27,4 +28,5 @@ class Marrage{
 
 int main (){
     cout << "shutiao is sleeping." << endl;
+    cout << "shutiao is sleeping in the sun." << endl;
 }
