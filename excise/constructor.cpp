@@ -29,4 +29,5 @@ class Marrage{
 int main (){
     cout << "shutiao is sleeping." << endl;
     cout << "shutiao is sleeping in the sun." << endl;
+    cout << "shutiao is sleeping in the sun another day." << endl;
 }
