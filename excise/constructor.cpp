@@ -30,4 +30,5 @@ int main (){
     cout << "shutiao is sleeping." << endl;
     cout << "shutiao is sleeping in the sun." << endl;
     cout << "shutiao is sleeping in the sun another day." << endl;
+    cout << "my son is ill today, he vomits serval times. His mon and I took him to the hospital" << endl;
 }
