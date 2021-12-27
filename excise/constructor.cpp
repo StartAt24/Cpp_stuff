@@ -34,4 +34,5 @@ int main (){
     cout << "I want get rank 2900 using protect paladin."<< endl;
     cout << "I'm gona to make some video about wow." << endl;
     cout << "Todoy overtime two 26+ keys" << endl;
+    cout << "forget to push yesterday" << endl;
 }
