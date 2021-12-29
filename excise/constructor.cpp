@@ -36,4 +36,5 @@ int main (){
     cout << "Todoy overtime two 26+ keys" << endl;
     cout << "forget to push yesterday" << endl;
     cout << "draw a green box" << endl;
+    cout << "draw a green box again, yy+p" << endl;
 }
