@@ -37,4 +37,5 @@ int main (){
     cout << "forget to push yesterday" << endl;
     cout << "draw a green box" << endl;
     cout << "draw a green box again, yy+p" << endl;
+    cout << "draw a green box again, yy+p" << endl;
 }
