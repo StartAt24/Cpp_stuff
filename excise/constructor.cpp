@@ -39,4 +39,5 @@ int main (){
     cout << "draw a green box again, yy+p" << endl;
     cout << "draw a green box again, yy+p" << endl;
     cout << "the last day of 2021." << endl;
+    cout << "first day of 2022" << endl;
 }
